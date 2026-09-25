@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MoneyBoxGame"
 include(":app")
+include(":core:designsystem")
