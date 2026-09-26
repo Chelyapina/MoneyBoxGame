@@ -26,3 +26,4 @@ rootProject.name = "MoneyBoxGame"
 include(":app")
 include(":core:designsystem")
 include(":feature:onboarding")
+include(":core:data")
