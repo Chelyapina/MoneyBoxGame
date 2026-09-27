@@ -12,11 +12,12 @@ private val Context.gameDataStore: DataStore<Preferences>
         by preferencesDataStore(name = "game_state")
 
 interface GameStateStore {
+    val state: Flow<GameState>
     suspend fun setPetName(name: String)
 }
 class GameStateStoreImpl(private val context: Context) : GameStateStore {
 
-    val state: Flow<GameState> = context.gameDataStore.data
+    override val state: Flow<GameState> = context.gameDataStore.data
         .map { it.toGameState() }
 
     override suspend fun setPetName(name: String) {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title">Привет, друг!</string>
+    <string name="onboarding_text">Рад видеть тебя в нашей игре!\nЗдесь мы будем учиться распоряжаться деньгами\n- Поставим цели\n- Научимся копить\nи узнаем много интересного!"</string>
+    <string name="start_text_button">Начать</string>
+    <string name="pet_name_title">Давай придумаем мне имя</string>
+    <string name="pet_name_error">Имя от %1$d до %2$d символов</string>
+</resources>

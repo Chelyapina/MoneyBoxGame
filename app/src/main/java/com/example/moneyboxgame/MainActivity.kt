@@ -9,17 +9,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.designsystem.theme.MoneyBoxGameTheme
-import com.example.onboarding.OnboardingScreen
+import com.example.moneyboxgame.presentation.AppRoot
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val factory = (application as MoneyBoxApp).component.viewModelFactory()
+
         setContent {
             MoneyBoxGameTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    OnboardingScreen(
-                        modifier = Modifier.padding(innerPadding)
+                Scaffold(Modifier.fillMaxSize()) { inner ->
+                    AppRoot(
+                        vmFactory = factory,
+                        modifier = Modifier.padding(inner),
                     )
                 }
             }
