@@ -13,6 +13,13 @@ fun OnboardingRoute(
 ) {
     val vm: OnboardingViewModel = viewModel(factory = vmFactory)
     OnboardingScreen(
-        onStartClick = { name -> vm.saveName(name, onFinished) }
+        onNameConfirmed = { name ->
+            vm.saveName(name) {  }
+        },
+        onPetViewConfirmed = { eyes, acc ->
+            vm.savePetView(eyes, acc) {
+                onFinished()
+            }
+        },
     )
 }

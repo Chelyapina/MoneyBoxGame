@@ -5,4 +5,7 @@
     <string name="start_text_button">Начать</string>
     <string name="pet_name_title">Давай придумаем мне имя</string>
     <string name="pet_name_error">Имя от %1$d до %2$d символов</string>
+    <string name="pet_view_title">Выбери глазки и украшение</string>
+    <string name="pet_view_eye_color_title">Цвет глаз</string>
+    <string name="pet_view_accessory_title">Украшение</string>
 </resources>

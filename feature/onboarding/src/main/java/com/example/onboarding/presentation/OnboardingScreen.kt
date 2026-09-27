@@ -31,6 +31,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.data.OwlAccessory
+import com.example.data.OwlEyeColor
 import com.example.designsystem.background.OwlPatternLayer
 import com.example.designsystem.components.InformCard
 import com.example.designsystem.theme.BlueBase
@@ -39,12 +41,17 @@ import com.example.onboarding.R
 import com.example.onboarding.domain.PetNameValidator
 import com.example.designsystem.R as DesignSystemR
 
+enum class OnboardingStep { GREETING, NAME, PET_VIEW }
+
 @Composable
 fun OnboardingScreen(
-    onStartClick: (String) -> Unit,
     modifier: Modifier = Modifier,
+    onNameConfirmed: (String) -> Unit,
+    onPetViewConfirmed: (OwlEyeColor, OwlAccessory?) -> Unit,
+    initialEyeColor: OwlEyeColor = OwlEyeColor.YELLOW,
+    initialAccessory: OwlAccessory? = null,
 ) {
-    var showNameCard by rememberSaveable { mutableStateOf(false) }
+    var step by rememberSaveable { mutableStateOf(OnboardingStep.GREETING) }
     var name by rememberSaveable { mutableStateOf("") }
 
     Box(
@@ -79,7 +86,7 @@ fun OnboardingScreen(
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
             )
-            Spacer(Modifier.height(64.dp))
+            Spacer(Modifier.height(128.dp))
             InformCard(
                 title = stringResource(R.string.onboarding_title),
                 content = {
@@ -90,20 +97,31 @@ fun OnboardingScreen(
                 },
                 okText = stringResource(R.string.start_text_button),
                 visible = true,
-                onOkClick = { showNameCard = true },
+                onOkClick = { step = OnboardingStep.NAME },
             )
         }
 
-        if (showNameCard) {
-            PetNameDialog(
+        when (step) {
+            OnboardingStep.NAME -> PetNameDialog(
                 name = name,
                 onNameChange = { name = it },
-                onDismiss = { showNameCard = false },
+                onDismiss = { step = OnboardingStep.GREETING },
                 onConfirm = {
-                    onStartClick(name.trim())
-                    showNameCard = false
+                    onNameConfirmed(name.trim())
+                    step = OnboardingStep.PET_VIEW
                 },
             )
+
+            OnboardingStep.PET_VIEW -> PetViewDialog(
+                initialEyeColor = initialEyeColor,
+                initialAccessory = initialAccessory,
+                onDismiss = { step = OnboardingStep.NAME },
+                onConfirm = { eyes, acc ->
+                    onPetViewConfirmed(eyes, acc)
+                },
+            )
+
+            OnboardingStep.GREETING -> Unit
         }
     }
 }
@@ -165,6 +183,55 @@ private fun PetNameDialog(
                 okEnabled = isValid,
                 visible = true,
                 onOkClick = onConfirm,
+                onDismissClick = onDismiss,
+            )
+        }
+    }
+}
+
+@Composable
+private fun PetViewDialog(
+    initialEyeColor: OwlEyeColor,
+    initialAccessory: OwlAccessory?,
+    onDismiss: () -> Unit,
+    onConfirm: (OwlEyeColor, OwlAccessory?) -> Unit,
+) {
+    var eyeColor by rememberSaveable { mutableStateOf(initialEyeColor) }
+    var accessory by rememberSaveable { mutableStateOf(initialAccessory) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.4f))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onDismiss,
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = {},
+                )
+        ) {
+            InformCard(
+                title = stringResource(R.string.pet_view_title),
+                content = {
+                    PetViewDialogContent(
+                        eyeColor = eyeColor,
+                        accessory = accessory,
+                        onEyeColorChange = { eyeColor = it },
+                        onAccessoryChange = { accessory = it },
+                    )
+                },
+                visible = true,
+                onOkClick = { onConfirm(eyeColor, accessory) },
                 onDismissClick = onDismiss,
             )
         }

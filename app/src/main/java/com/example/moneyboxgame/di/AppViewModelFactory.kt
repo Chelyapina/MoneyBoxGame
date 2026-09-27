@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneyboxgame.domain.ObserveGameStateUseCase
 import com.example.moneyboxgame.presentation.SplashViewModel
+import com.example.onboarding.domain.usecase.CompleteOnboardingUseCase
+import com.example.onboarding.domain.usecase.SaveOwlAccessoryUseCase
+import com.example.onboarding.domain.usecase.SaveOwlEyeColorUseCase
 import com.example.onboarding.presentation.OnboardingViewModel
-import com.example.onboarding.domain.SavePetNameUseCase
+import com.example.onboarding.domain.usecase.SavePetNameUseCase
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
@@ -13,6 +16,9 @@ import jakarta.inject.Singleton
 class AppViewModelFactory @Inject constructor(
     private val observeGameState: ObserveGameStateUseCase,
     private val savePetName: SavePetNameUseCase,
+    private val saveEyeColor: SaveOwlEyeColorUseCase,
+    private val saveAccessory: SaveOwlAccessoryUseCase,
+    private val completeOnboarding: CompleteOnboardingUseCase,
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -20,7 +26,12 @@ class AppViewModelFactory @Inject constructor(
         modelClass.isAssignableFrom(SplashViewModel::class.java) ->
             SplashViewModel(observeGameState) as T
         modelClass.isAssignableFrom(OnboardingViewModel::class.java) ->
-            OnboardingViewModel(savePetName) as T
+            OnboardingViewModel(
+                completeOnboarding,
+                savePetName,
+                saveEyeColor,
+                saveAccessory,
+            ) as T
         else -> error("Unknown VM: ${modelClass.name}")
     }
 }

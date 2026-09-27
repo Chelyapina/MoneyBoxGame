@@ -1,4 +1,4 @@
-package com.example.onboarding.domain
+package com.example.onboarding.domain.usecase
 
 import com.example.data.GameStateStore
 import javax.inject.Inject
