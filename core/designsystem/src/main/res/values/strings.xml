@@ -2,4 +2,7 @@
     <string name="app_name">Питомец\nФинни</string>
     <string name="ok_text">ОК</string>
     <string name="dismiss_text">Отмена</string>
+    <string name="satiety">Сытость</string>
+    <string name="savings">Мои монеты</string>
+    <string name="settings">Настройки</string>
 </resources>
