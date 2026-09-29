@@ -1,34 +1,7 @@
-package com.example.shop.domain
+package com.example.data.gameState.data
 
-import com.example.data.gameState.data.GameState
-import com.example.data.gameState.data.OwlMood
 import com.example.designsystem.resources.ItemCategory
 import com.example.designsystem.resources.ShopItem
-
-
-sealed interface PurchaseOutcome {
-    data class Success(
-        val newBalanceFood: Int,
-        val newBalanceFun: Int,
-        val newSatiety: Int,
-        val newMood: OwlMood,
-        val newLevel: Int,
-        val leveledUp: Boolean,
-        val clearGoal: Boolean,
-        val itemId: String,
-    ) : PurchaseOutcome
-
-    data class NotEnoughMoney(val shortage: Int) : PurchaseOutcome
-    data object AlreadyFull : PurchaseOutcome
-    data object CannotImproveMood : PurchaseOutcome
-
-    data class GoalInProgress(
-        val saved: Int,
-        val price: Int,
-    ) : PurchaseOutcome
-    data object GoalAlreadyChosen : PurchaseOutcome
-    data object NoGoalChosen : PurchaseOutcome
-}
 
 object PurchaseCalculator {
 
@@ -110,4 +83,3 @@ object PurchaseCalculator {
         OwlMood.GOOD -> OwlMood.GOOD
     }
 }
-

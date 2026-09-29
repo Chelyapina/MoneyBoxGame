@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.data.gameState.data.GameState
+import com.example.data.gameState.data.PurchaseOutcome
 import com.example.designsystem.background.OwlPatternLayer
 import com.example.designsystem.components.InformCard
 import com.example.designsystem.resources.ItemCategory
@@ -45,7 +46,6 @@ import com.example.designsystem.theme.OrangeBgBottom
 import com.example.designsystem.theme.OrangeBgCenter
 import com.example.designsystem.theme.OrangeBgTop
 import com.example.designsystem.util.modalBlock
-import com.example.shop.domain.PurchaseOutcome
 
 @Composable
 fun ShopScreen(
@@ -347,5 +347,7 @@ private fun dialogMessage(state: ShopDialogState): String {
 
         PurchaseOutcome.NoGoalChosen ->
             stringResource(R.string.shop_msg_goal_none)
+
+        else -> ""
     }
 }

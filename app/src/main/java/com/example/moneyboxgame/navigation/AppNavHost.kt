@@ -9,11 +9,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.tasks.presentation.TasksScreen
+import com.example.tasks.presentation.TasksViewModel
 
 @Composable
 fun AppNavHost(startDestination: String, vmFactory: ViewModelProvider.Factory) {
@@ -59,14 +62,28 @@ fun AppNavHost(startDestination: String, vmFactory: ViewModelProvider.Factory) {
             )
         }
 
-        composable(Route.TASKS) { TasksScreen() }
+        composable(Route.TASKS) {
+            TasksRoute(
+                vmFactory = vmFactory,
+                onBack = { nav.popBackStack() },
+            )
+        }
+
         composable(Route.SETTINGS) { SettingsScreen() }
     }
 }
 
 @Composable
-fun TasksScreen() = StubScreen("Задания")
-
+fun TasksRoute(
+    vmFactory: ViewModelProvider.Factory,
+    onBack: () -> Unit,
+) {
+    val vm: TasksViewModel = viewModel(factory = vmFactory)
+    TasksScreen(
+        onBack = onBack,
+        onTaskCompleted = vm::onTaskCompleted,
+    )
+}
 @Composable
 fun SettingsScreen() = StubScreen("Настройки")
 

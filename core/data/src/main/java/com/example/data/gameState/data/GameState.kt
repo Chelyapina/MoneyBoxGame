@@ -44,3 +44,37 @@ data class GameState(
         val Empty = GameState()
     }
 }
+
+data class TaskReward(
+    val foodCoins: Int,
+    val funCoins: Int,
+    val satietyCost: Int,
+) {
+    companion object {
+        val Standard = TaskReward(foodCoins = 25, funCoins = 25, satietyCost = 3)
+    }
+}
+
+sealed interface PurchaseOutcome {
+    data class Success(
+        val newBalanceFood: Int,
+        val newBalanceFun: Int,
+        val newSatiety: Int,
+        val newMood: OwlMood,
+        val newLevel: Int,
+        val leveledUp: Boolean,
+        val clearGoal: Boolean,
+        val itemId: String,
+    ) : PurchaseOutcome
+
+    data class NotEnoughMoney(val shortage: Int) : PurchaseOutcome
+    data object AlreadyFull : PurchaseOutcome
+    data object CannotImproveMood : PurchaseOutcome
+
+    data class GoalInProgress(
+        val saved: Int,
+        val price: Int,
+    ) : PurchaseOutcome
+    data object GoalAlreadyChosen : PurchaseOutcome
+    data object NoGoalChosen : PurchaseOutcome
+}

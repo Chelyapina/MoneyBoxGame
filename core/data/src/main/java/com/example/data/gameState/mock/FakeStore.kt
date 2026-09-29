@@ -5,6 +5,8 @@ import com.example.data.gameState.data.GameStateStore
 import com.example.data.gameState.data.OwlAccessory
 import com.example.data.gameState.data.OwlEyeColor
 import com.example.data.gameState.data.OwlMood
+import com.example.data.gameState.data.PurchaseCalculator
+import com.example.data.gameState.data.TaskReward
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -22,6 +24,7 @@ class FakeStore(
     var savedGoalId: String? = null
     var savedPlan: Triple<Int, Int, Int>? = null
     var savedPurchase: SavedPurchase? = null
+    var savedTaskReward: TaskReward? = null
     var onboardingCompleted = false
 
     override suspend fun setPetName(name: String) {
@@ -87,6 +90,22 @@ class FakeStore(
             level = level,
             goalId = if (clearGoal) null else _state.value.goalId,
             purchasesThisLevel = _state.value.purchasesThisLevel + itemId,
+        )
+    }
+
+    override suspend fun applyTaskReward(
+        foodCoins: Int,
+        funCoins: Int,
+        satietyCost: Int,
+    ) {
+        savedTaskReward = TaskReward(foodCoins, funCoins, satietyCost)
+        val s = _state.value
+        val newSatiety = (s.satiety - satietyCost).coerceAtLeast(0)
+        _state.value = s.copy(
+            balanceFood = s.balanceFood + foodCoins,
+            balanceFun = s.balanceFun + funCoins,
+            satiety = newSatiety,
+            owlMood = PurchaseCalculator.moodFromSatiety(newSatiety),
         )
     }
 

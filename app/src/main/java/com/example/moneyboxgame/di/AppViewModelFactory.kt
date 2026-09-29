@@ -15,11 +15,14 @@ import com.example.savings.SavePlanUseCase
 import com.example.savings.SavingsViewModel
 import com.example.shop.ShopViewModel
 import com.example.shop.domain.PurchaseItemUseCase
+import com.example.tasks.domain.ApplyTaskRewardUseCase
+import com.example.tasks.presentation.TasksViewModel
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
 @Singleton
 class AppViewModelFactory @Inject constructor(
+    private val applyTaskRewardUseCase: ApplyTaskRewardUseCase,
     private val observeGameState: ObserveGameStateUseCase,
     private val savePetName: SavePetNameUseCase,
     private val saveEyeColor: SaveOwlEyeColorUseCase,
@@ -47,6 +50,8 @@ class AppViewModelFactory @Inject constructor(
             SavingsViewModel(observeGameState, savePlanUseCase) as T
         modelClass.isAssignableFrom(ShopViewModel::class.java) ->
             ShopViewModel(observeGameState, purchaseItemUseCase) as T
+        modelClass.isAssignableFrom(TasksViewModel::class.java) ->
+            TasksViewModel(applyTaskRewardUseCase) as T
         else -> error("Unknown VM: ${modelClass.name}")
     }
 }

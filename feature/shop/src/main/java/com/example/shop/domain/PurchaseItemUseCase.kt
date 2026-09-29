@@ -2,6 +2,8 @@ package com.example.shop.domain
 
 import com.example.data.gameState.data.GameState
 import com.example.data.gameState.data.GameStateStore
+import com.example.data.gameState.data.PurchaseCalculator
+import com.example.data.gameState.data.PurchaseOutcome
 import com.example.designsystem.resources.ShopItem
 import javax.inject.Inject
 

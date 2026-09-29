@@ -28,6 +28,11 @@ interface GameStateStore {
         level: Int,
         clearGoal: Boolean,
     )
+    suspend fun applyTaskReward(
+        foodCoins: Int,
+        funCoins: Int,
+        satietyCost: Int,
+    )
     suspend fun completeOnboarding()
 }
 
@@ -95,6 +100,25 @@ class GameStateStoreImpl(private val context: Context) : GameStateStore {
             prefs[GameStateKeys.PURCHASES_THIS_LEVEL] = current + itemId
         }
     }
+
+    override suspend fun applyTaskReward(
+        foodCoins: Int,
+        funCoins: Int,
+        satietyCost: Int,
+    ) {
+        context.gameDataStore.edit { prefs ->
+            val food = (prefs[GameStateKeys.BALANCE_FOOD] ?: 25) + foodCoins
+            val funBalance = (prefs[GameStateKeys.BALANCE_FUN] ?: 25) + funCoins
+            val satiety = ((prefs[GameStateKeys.SATIETY] ?: 10) - satietyCost)
+                .coerceAtLeast(0)
+            prefs[GameStateKeys.BALANCE_FOOD] = food
+            prefs[GameStateKeys.BALANCE_FUN] = funBalance
+            prefs[GameStateKeys.SATIETY] = satiety
+            prefs[GameStateKeys.OWL_MOOD] =
+                PurchaseCalculator.moodFromSatiety(satiety).name
+        }
+    }
+
 
     override suspend fun completeOnboarding() {
         context.gameDataStore.edit { it[GameStateKeys.ONBOARDING_DONE] = true }
