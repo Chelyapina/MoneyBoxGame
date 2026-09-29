@@ -5,4 +5,28 @@
     <string name="satiety">Сытость</string>
     <string name="savings">Мои монеты</string>
     <string name="settings">Настройки</string>
+
+    <!-- MANDATORY -->
+    <string name="item_carrot">Морковь</string>
+    <string name="item_juice">Сок</string>
+    <string name="item_apple">Яблоко</string>
+    <string name="item_broccoli">Брокколи</string>
+    <string name="item_strawberry">Клубника</string>
+    <string name="item_sandwich">Сэндвич</string>
+
+    <!-- OPTIONAL -->
+    <string name="item_candy">Конфета</string>
+    <string name="item_cake">Пирожное</string>
+    <string name="item_teddy">Мишка</string>
+    <string name="item_kite">Змей</string>
+    <string name="item_phone">Телефон</string>
+    <string name="item_laptop">Ноутбук</string>
+
+    <!-- GOAL -->
+    <string name="goal_house">Домик</string>
+    <string name="goal_tree">Дерево</string>
+    <string name="goal_headphones">Наушники</string>
+    <string name="goal_microphone">Микрофон</string>
+    <string name="goal_skateboard">Скейт</string>
+    <string name="goal_bike">Велосипед</string>
 </resources>
