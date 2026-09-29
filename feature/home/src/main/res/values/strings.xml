@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dream_text">Выбери\nмечту</string>
+    <string name="goal_select_title">Выбери свою мечту</string>
+    <string name="goal_select_text">Эту цель нельзя будет изменить до её достижения</string>
+    <string name="goal_confirm_title">Отличный выбор!</string>
+    <string name="goal_confirm_text">Теперь копи на «%1$s» — тебе нужно %2$d монет. Следи за прогрессом в накоплениях</string>
+    <string name="my_coins">Мои монеты</string>
+</resources>

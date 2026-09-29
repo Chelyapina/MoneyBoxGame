@@ -1,6 +1,6 @@
 package com.example.onboarding.domain.usecase
 
-import com.example.data.GameStateStore
+import com.example.data.gameState.data.GameStateStore
 import javax.inject.Inject
 
 class SavePetNameUseCase @Inject constructor(

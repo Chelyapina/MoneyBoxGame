@@ -1,8 +1,8 @@
 package com.example.moneyboxgame
 
-import com.example.data.GameState
-import com.example.mock.FakeStore
-import com.example.moneyboxgame.domain.ObserveGameStateUseCase
+import com.example.data.gameState.data.GameState
+import com.example.data.gameState.domain.ObserveGameStateUseCase
+import com.example.data.gameState.mock.FakeStore
 import com.example.moneyboxgame.navigation.Route
 import com.example.moneyboxgame.presentation.SplashViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 

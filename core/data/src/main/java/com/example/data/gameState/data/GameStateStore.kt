@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.gameState.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -14,10 +14,10 @@ private val Context.gameDataStore: DataStore<Preferences>
 interface GameStateStore {
     val state: Flow<GameState>
     suspend fun setPetName(name: String)
-    suspend fun setOwlSize(size: OwlSize)
     suspend fun setOwlMood(mood: OwlMood)
     suspend fun setOwlAccessory(accessory: OwlAccessory)
     suspend fun setOwlEyeColor(color: OwlEyeColor)
+    suspend fun setGoal(goalId: String)
     suspend fun completeOnboarding()
 }
 
@@ -31,10 +31,6 @@ class GameStateStoreImpl(private val context: Context) : GameStateStore {
         context.gameDataStore.edit { it[GameStateKeys.PET_NAME] = normalized }
     }
 
-    override suspend fun setOwlSize(size: OwlSize) {
-        context.gameDataStore.edit { it[GameStateKeys.OWL_SIZE] = size.name }
-    }
-
     override suspend fun setOwlMood(mood: OwlMood) {
         context.gameDataStore.edit { it[GameStateKeys.OWL_MOOD] = mood.name }
     }
@@ -45,6 +41,12 @@ class GameStateStoreImpl(private val context: Context) : GameStateStore {
 
     override suspend fun setOwlEyeColor(color: OwlEyeColor) {
         context.gameDataStore.edit { it[GameStateKeys.OWL_EYE_COLOR] = color.name }
+    }
+
+    override suspend fun setGoal(goalId: String) {
+        context.gameDataStore.edit { prefs ->
+            prefs[GameStateKeys.GOAL_ID] = goalId
+        }
     }
 
     override suspend fun completeOnboarding() {

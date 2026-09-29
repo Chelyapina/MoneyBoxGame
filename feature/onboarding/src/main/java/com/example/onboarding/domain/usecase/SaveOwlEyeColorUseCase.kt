@@ -1,7 +1,7 @@
 package com.example.onboarding.domain.usecase
 
-import com.example.data.GameStateStore
-import com.example.data.OwlEyeColor
+import com.example.data.gameState.data.GameStateStore
+import com.example.data.gameState.data.OwlEyeColor
 import javax.inject.Inject
 
 class SaveOwlEyeColorUseCase @Inject constructor(

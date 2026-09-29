@@ -25,8 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.data.OwlAccessory
-import com.example.data.OwlEyeColor
+import com.example.data.gameState.data.OwlAccessory
+import com.example.data.gameState.data.OwlEyeColor
 import com.example.onboarding.R
 import com.example.designsystem.R as DesignSystemR
 

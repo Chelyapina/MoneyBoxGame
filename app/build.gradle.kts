@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":feature:home"))
     implementation(project(":feature:onboarding"))
 
     implementation(platform(libs.androidx.compose.bom))
@@ -50,9 +51,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.ui.graphics)
 
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

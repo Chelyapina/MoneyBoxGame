@@ -1,11 +1,10 @@
-package com.example.mock
+package com.example.data.gameState.mock
 
-import com.example.data.GameState
-import com.example.data.GameStateStore
-import com.example.data.OwlAccessory
-import com.example.data.OwlEyeColor
-import com.example.data.OwlMood
-import com.example.data.OwlSize
+import com.example.data.gameState.data.GameState
+import com.example.data.gameState.data.GameStateStore
+import com.example.data.gameState.data.OwlAccessory
+import com.example.data.gameState.data.OwlEyeColor
+import com.example.data.gameState.data.OwlMood
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -19,8 +18,8 @@ class FakeStore(
     var savedName: String? = null
     var savedEyeColor: OwlEyeColor? = null
     var savedAccessory: OwlAccessory? = null
-    var savedSize: OwlSize? = null
     var savedMood: OwlMood? = null
+    var savedGoalId: String? = null
     var onboardingCompleted = false
 
     override suspend fun setPetName(name: String) {
@@ -38,14 +37,14 @@ class FakeStore(
         _state.value = _state.value.copy(owlAccessory = accessory)
     }
 
-    override suspend fun setOwlSize(size: OwlSize) {
-        savedSize = size
-        _state.value = _state.value.copy(owlSize = size)
-    }
-
     override suspend fun setOwlMood(mood: OwlMood) {
         savedMood = mood
         _state.value = _state.value.copy(owlMood = mood)
+    }
+
+    override suspend fun setGoal(goalId: String) {
+        savedGoalId = goalId
+        _state.value = _state.value.copy(goalId = goalId)
     }
 
     override suspend fun completeOnboarding() {

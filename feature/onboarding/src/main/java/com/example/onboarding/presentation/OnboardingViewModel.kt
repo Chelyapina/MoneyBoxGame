@@ -2,8 +2,8 @@ package com.example.onboarding.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.OwlAccessory
-import com.example.data.OwlEyeColor
+import com.example.data.gameState.data.OwlAccessory
+import com.example.data.gameState.data.OwlEyeColor
 import com.example.onboarding.domain.usecase.CompleteOnboardingUseCase
 import com.example.onboarding.domain.usecase.SaveOwlAccessoryUseCase
 import com.example.onboarding.domain.usecase.SaveOwlEyeColorUseCase

@@ -31,8 +31,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.data.OwlAccessory
-import com.example.data.OwlEyeColor
+import com.example.data.gameState.data.OwlAccessory
+import com.example.data.gameState.data.OwlEyeColor
 import com.example.designsystem.background.OwlPatternLayer
 import com.example.designsystem.components.InformCard
 import com.example.designsystem.theme.BlueBase

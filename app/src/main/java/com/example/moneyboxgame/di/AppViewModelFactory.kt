@@ -2,13 +2,15 @@ package com.example.moneyboxgame.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.moneyboxgame.domain.ObserveGameStateUseCase
+import com.example.data.gameState.domain.ObserveGameStateUseCase
+import com.example.home.domain.SelectGoalUseCase
+import com.example.home.presentation.HomeViewModel
 import com.example.moneyboxgame.presentation.SplashViewModel
 import com.example.onboarding.domain.usecase.CompleteOnboardingUseCase
 import com.example.onboarding.domain.usecase.SaveOwlAccessoryUseCase
 import com.example.onboarding.domain.usecase.SaveOwlEyeColorUseCase
-import com.example.onboarding.presentation.OnboardingViewModel
 import com.example.onboarding.domain.usecase.SavePetNameUseCase
+import com.example.onboarding.presentation.OnboardingViewModel
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
@@ -18,6 +20,7 @@ class AppViewModelFactory @Inject constructor(
     private val savePetName: SavePetNameUseCase,
     private val saveEyeColor: SaveOwlEyeColorUseCase,
     private val saveAccessory: SaveOwlAccessoryUseCase,
+    private val selectGoalUseCase: SelectGoalUseCase,
     private val completeOnboarding: CompleteOnboardingUseCase,
 ) : ViewModelProvider.Factory {
 
@@ -32,6 +35,8 @@ class AppViewModelFactory @Inject constructor(
                 saveEyeColor,
                 saveAccessory,
             ) as T
+        modelClass.isAssignableFrom(HomeViewModel::class.java) ->
+            HomeViewModel(observeGameState, selectGoalUseCase) as T
         else -> error("Unknown VM: ${modelClass.name}")
     }
 }

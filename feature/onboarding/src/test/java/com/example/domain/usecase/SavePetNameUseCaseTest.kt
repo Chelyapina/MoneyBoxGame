@@ -1,6 +1,6 @@
 package com.example.domain.usecase
 
-import com.example.mock.FakeStore
+import com.example.data.gameState.mock.FakeStore
 import com.example.onboarding.domain.usecase.SavePetNameUseCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

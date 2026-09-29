@@ -1,7 +1,7 @@
 package com.example.domain.usecase
 
-import com.example.data.OwlAccessory
-import com.example.mock.FakeStore
+import com.example.data.gameState.data.OwlAccessory
+import com.example.data.gameState.mock.FakeStore
 import com.example.onboarding.domain.usecase.SaveOwlAccessoryUseCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

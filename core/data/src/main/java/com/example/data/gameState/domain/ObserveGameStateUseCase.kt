@@ -1,7 +1,7 @@
-package com.example.moneyboxgame.domain
+package com.example.data.gameState.domain
 
-import com.example.data.GameState
-import com.example.data.GameStateStore
+import com.example.data.gameState.data.GameState
+import com.example.data.gameState.data.GameStateStore
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
