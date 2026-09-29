@@ -21,6 +21,7 @@ class FakeStore(
     var savedMood: OwlMood? = null
     var savedGoalId: String? = null
     var savedPlan: Triple<Int, Int, Int>? = null
+    var savedPurchase: SavedPurchase? = null
     var onboardingCompleted = false
 
     override suspend fun setPetName(name: String) {
@@ -60,8 +61,47 @@ class FakeStore(
         )
     }
 
+    override suspend fun applyPurchase(
+        itemId: String,
+        balanceFood: Int,
+        balanceFun: Int,
+        satiety: Int,
+        owlMood: OwlMood,
+        level: Int,
+        clearGoal: Boolean,
+    ) {
+        savedPurchase = SavedPurchase(
+            itemId = itemId,
+            balanceFood = balanceFood,
+            balanceFun = balanceFun,
+            satiety = satiety,
+            owlMood = owlMood,
+            level = level,
+            clearGoal = clearGoal,
+        )
+        _state.value = _state.value.copy(
+            balanceFood = balanceFood,
+            balanceFun = balanceFun,
+            satiety = satiety,
+            owlMood = owlMood,
+            level = level,
+            goalId = if (clearGoal) null else _state.value.goalId,
+            purchasesThisLevel = _state.value.purchasesThisLevel + itemId,
+        )
+    }
+
     override suspend fun completeOnboarding() {
         onboardingCompleted = true
         _state.value = _state.value.copy(isOnboardingDone = true)
     }
 }
+
+data class SavedPurchase(
+    val itemId: String,
+    val balanceFood: Int,
+    val balanceFun: Int,
+    val satiety: Int,
+    val owlMood: OwlMood,
+    val level: Int,
+    val clearGoal: Boolean,
+)

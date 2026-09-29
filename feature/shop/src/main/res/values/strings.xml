@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Назад</string>
+    <string name="ok">ОК</string>
+    <string name="coins_fmt">🪙 %1$d</string>
+
+    <string name="shop_section_food">Еда</string>
+    <string name="shop_section_fun">Вкусняшки и игрушки</string>
+    <string name="shop_section_goals">Твои мечты</string>
+
+    <string name="shop_effect_satiety_fmt">+%1$d сытости</string>
+    <string name="shop_effect_fun_fmt">+%1$d радости</string>
+    <string name="shop_price_fmt">Цена: %1$d монеток</string>
+    <string name="shop_buy">Купить</string>
+
+    <string name="shop_goal_current">Твоя текущая мечта</string>
+    <string name="shop_goal_future">Другая мечта</string>
+
+    <string name="shop_msg_eat">Сейчас сытость: %1$d/10.\nЕсли съешь — станет %2$d/10.</string>
+    <string name="shop_msg_level_up">Сова наелась и подросла! Теперь у неё %1$d уровень.\nСкоро выберешь новую мечту!</string>
+    <string name="shop_msg_fun">Эта покупка поднимет настроение питомца!</string>
+    <string name="shop_msg_no_money">Не хватает %1$d монеток. Сходи поработать, потом возвращайся!</string>
+    <string name="shop_msg_already_full">Ты сыт — пока есть не нужно. Загляни позже.</string>
+    <string name="shop_msg_mood_max">У питомца отличное настроение — больше радовать нечем.</string>
+
+    <string name="shop_msg_goal_progress">Ты уже накопил %1$d из %2$d монеток.\nОсталось ещё %3$d — копи дальше!</string>
+    <string name="shop_msg_goal_other">Это тоже классная мечта, но у тебя уже выбрана другая.\nСначала накопи на неё!</string>
+    <string name="shop_msg_goal_none">Ты пока не выбрал мечту.\nВернись на главный экран и выбери!</string>
+</resources>

@@ -52,13 +52,17 @@ fun AppNavHost(startDestination: String, vmFactory: ViewModelProvider.Factory) {
             )
         }
 
-        composable(Route.SHOP) { ShopScreen() }
+        composable(Route.SHOP) {
+            ShopRoute(
+                vmFactory = vmFactory,
+                onBack = { nav.popBackStack() },
+            )
+        }
+
         composable(Route.TASKS) { TasksScreen() }
         composable(Route.SETTINGS) { SettingsScreen() }
     }
 }
-@Composable
-fun ShopScreen() = StubScreen("Магазин")
 
 @Composable
 fun TasksScreen() = StubScreen("Задания")

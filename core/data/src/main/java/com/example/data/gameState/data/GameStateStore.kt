@@ -19,6 +19,15 @@ interface GameStateStore {
     suspend fun setOwlEyeColor(color: OwlEyeColor)
     suspend fun setGoal(goalId: String)
     suspend fun setPlan(food: Int, funAmount: Int, savings: Int)
+    suspend fun applyPurchase(
+        itemId: String,
+        balanceFood: Int,
+        balanceFun: Int,
+        satiety: Int,
+        owlMood: OwlMood,
+        level: Int,
+        clearGoal: Boolean,
+    )
     suspend fun completeOnboarding()
 }
 
@@ -58,6 +67,32 @@ class GameStateStoreImpl(private val context: Context) : GameStateStore {
             prefs[GameStateKeys.BALANCE_FOOD] = food
             prefs[GameStateKeys.BALANCE_FUN] = funAmount
             prefs[GameStateKeys.SAVINGS] = savings
+        }
+    }
+
+    override suspend fun applyPurchase(
+        itemId: String,
+        balanceFood: Int,
+        balanceFun: Int,
+        satiety: Int,
+        owlMood: OwlMood,
+        level: Int,
+        clearGoal: Boolean,
+    ) {
+        context.gameDataStore.edit { prefs ->
+            prefs[GameStateKeys.BALANCE_FOOD] = balanceFood
+            prefs[GameStateKeys.BALANCE_FUN] = balanceFun
+            prefs[GameStateKeys.SATIETY] = satiety
+            prefs[GameStateKeys.OWL_MOOD] = owlMood.name
+            prefs[GameStateKeys.LEVEL] = level
+
+            if (clearGoal) {
+                prefs.remove(GameStateKeys.GOAL_ID)
+                prefs[GameStateKeys.PURCHASES_THIS_LEVEL] = emptySet()
+            }
+
+            val current = prefs[GameStateKeys.PURCHASES_THIS_LEVEL].orEmpty()
+            prefs[GameStateKeys.PURCHASES_THIS_LEVEL] = current + itemId
         }
     }
 

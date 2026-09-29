@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:savings"))
+    implementation(project(":feature:shop"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
