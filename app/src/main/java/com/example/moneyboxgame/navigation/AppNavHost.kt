@@ -45,10 +45,16 @@ fun AppNavHost(startDestination: String, vmFactory: ViewModelProvider.Factory) {
             )
         }
 
+        composable(Route.SAVINGS) {
+            SavingsRoute(
+                vmFactory = vmFactory,
+                onBack = { nav.popBackStack() },
+            )
+        }
+
         composable(Route.SHOP) { ShopScreen() }
         composable(Route.TASKS) { TasksScreen() }
         composable(Route.SETTINGS) { SettingsScreen() }
-        composable(Route.SAVINGS) { SavingsScreen() }
     }
 }
 @Composable
@@ -59,9 +65,6 @@ fun TasksScreen() = StubScreen("Задания")
 
 @Composable
 fun SettingsScreen() = StubScreen("Настройки")
-
-@Composable
-fun SavingsScreen() = StubScreen("Мои монеты")
 
 @Composable
 private fun StubScreen(title: String) {

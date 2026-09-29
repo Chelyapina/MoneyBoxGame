@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="savings_title">Мои монеты</string>
+    <string name="savings_explanation">Твои монетки можно разделить на три части.\nЕда — то, без чего не обойтись.\nРазвлечения — вкусняшки и игрушки.\nЦель — то, о чём ты мечтаешь.\nРазложи все монетки — ни одна не должна остаться!</string><string name="plan_food">🍎 Еда</string>
+    <string name="plan_fun">🎮 Развлечения</string>
+    <string name="plan_savings">🎯 Цель</string>
+    <string name="plan_total_fmt">Всего монеток: %1$d</string>
+    <string name="plan_remaining_fmt">Осталось разложить: %1$d</string>
+    <string name="plan_all_distributed">Всё разложено — можно продолжать!</string>
+</resources>

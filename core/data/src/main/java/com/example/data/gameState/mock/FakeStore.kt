@@ -20,6 +20,7 @@ class FakeStore(
     var savedAccessory: OwlAccessory? = null
     var savedMood: OwlMood? = null
     var savedGoalId: String? = null
+    var savedPlan: Triple<Int, Int, Int>? = null
     var onboardingCompleted = false
 
     override suspend fun setPetName(name: String) {
@@ -45,6 +46,18 @@ class FakeStore(
     override suspend fun setGoal(goalId: String) {
         savedGoalId = goalId
         _state.value = _state.value.copy(goalId = goalId)
+    }
+
+    override suspend fun setPlan(food: Int, funAmount: Int, savings: Int) {
+        savedPlan = Triple(food, funAmount, savings)
+        _state.value = _state.value.copy(
+            planFood = food,
+            planFun = funAmount,
+            planSavings = savings,
+            balanceFood = food,
+            balanceFun = funAmount,
+            savings = savings,
+        )
     }
 
     override suspend fun completeOnboarding() {

@@ -18,6 +18,7 @@ interface GameStateStore {
     suspend fun setOwlAccessory(accessory: OwlAccessory)
     suspend fun setOwlEyeColor(color: OwlEyeColor)
     suspend fun setGoal(goalId: String)
+    suspend fun setPlan(food: Int, funAmount: Int, savings: Int)
     suspend fun completeOnboarding()
 }
 
@@ -46,6 +47,17 @@ class GameStateStoreImpl(private val context: Context) : GameStateStore {
     override suspend fun setGoal(goalId: String) {
         context.gameDataStore.edit { prefs ->
             prefs[GameStateKeys.GOAL_ID] = goalId
+        }
+    }
+
+    override suspend fun setPlan(food: Int, funAmount: Int, savings: Int) {
+        context.gameDataStore.edit { prefs ->
+            prefs[GameStateKeys.PLAN_FOOD] = food
+            prefs[GameStateKeys.PLAN_FUN] = funAmount
+            prefs[GameStateKeys.PLAN_SAVINGS] = savings
+            prefs[GameStateKeys.BALANCE_FOOD] = food
+            prefs[GameStateKeys.BALANCE_FUN] = funAmount
+            prefs[GameStateKeys.SAVINGS] = savings
         }
     }
 

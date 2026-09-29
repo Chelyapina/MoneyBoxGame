@@ -7,6 +7,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.home.presentation.HomeScreen
 import com.example.home.presentation.HomeViewModel
+import com.example.savings.domain.SavingsScreen
+import com.example.savings.SavingsViewModel
 
 @Composable
 fun HomeRoute(
