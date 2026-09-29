@@ -33,6 +33,7 @@ interface GameStateStore {
         funCoins: Int,
         satietyCost: Int,
     )
+    suspend fun completeGoal(itemId: String, price: Int)
     suspend fun completeOnboarding()
 }
 
@@ -116,6 +117,16 @@ class GameStateStoreImpl(private val context: Context) : GameStateStore {
             prefs[GameStateKeys.SATIETY] = satiety
             prefs[GameStateKeys.OWL_MOOD] =
                 PurchaseCalculator.moodFromSatiety(satiety).name
+        }
+    }
+
+    override suspend fun completeGoal(itemId: String, price: Int) {
+        context.gameDataStore.edit { prefs ->
+            prefs[GameStateKeys.SAVINGS] = 0
+            prefs[GameStateKeys.LEVEL] = (prefs[GameStateKeys.LEVEL] ?: 1) + 1
+            prefs.remove(GameStateKeys.GOAL_ID)
+            val current = prefs[GameStateKeys.PURCHASES_THIS_LEVEL].orEmpty()
+            prefs[GameStateKeys.PURCHASES_THIS_LEVEL] = current + itemId
         }
     }
 

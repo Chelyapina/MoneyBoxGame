@@ -25,6 +25,7 @@ class FakeStore(
     var savedPlan: Triple<Int, Int, Int>? = null
     var savedPurchase: SavedPurchase? = null
     var savedTaskReward: TaskReward? = null
+    var savedGoalCompletion: Pair<String, Int>? = null
     var onboardingCompleted = false
 
     override suspend fun setPetName(name: String) {
@@ -106,6 +107,17 @@ class FakeStore(
             balanceFun = s.balanceFun + funCoins,
             satiety = newSatiety,
             owlMood = PurchaseCalculator.moodFromSatiety(newSatiety),
+        )
+    }
+
+    override suspend fun completeGoal(itemId: String, price: Int) {
+        savedGoalCompletion = itemId to price
+        val s = _state.value
+        _state.value = s.copy(
+            savings = 0,
+            level = s.level + 1,
+            goalId = null,
+            purchasesThisLevel = s.purchasesThisLevel + itemId,
         )
     }
 

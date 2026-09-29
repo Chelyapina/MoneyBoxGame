@@ -10,13 +10,10 @@ import javax.inject.Inject
 class PurchaseItemUseCase @Inject constructor(
     private val store: GameStateStore,
 ) {
-    suspend operator fun invoke(
-        current: GameState,
-        item: ShopItem,
-    ): PurchaseOutcome {
+    suspend operator fun invoke(current: GameState, item: ShopItem): PurchaseOutcome {
         val outcome = PurchaseCalculator.calculate(current, item)
-        if (outcome is PurchaseOutcome.Success) {
-            store.applyPurchase(
+        when (outcome) {
+            is PurchaseOutcome.Success -> store.applyPurchase(
                 itemId = outcome.itemId,
                 balanceFood = outcome.newBalanceFood,
                 balanceFun = outcome.newBalanceFun,
@@ -25,6 +22,11 @@ class PurchaseItemUseCase @Inject constructor(
                 level = outcome.newLevel,
                 clearGoal = outcome.clearGoal,
             )
+            is PurchaseOutcome.GoalReady -> store.completeGoal(
+                itemId = outcome.itemId,
+                price = outcome.price,
+            )
+            else -> Unit
         }
         return outcome
     }

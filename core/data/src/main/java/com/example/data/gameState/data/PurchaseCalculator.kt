@@ -58,14 +58,13 @@ object PurchaseCalculator {
     }
 
     private fun calculateGoal(current: GameState, item: ShopItem): PurchaseOutcome {
-        val currentGoalId = current.goalId
-            ?: return PurchaseOutcome.NoGoalChosen
-
+        val currentGoalId = current.goalId ?: return PurchaseOutcome.NoGoalChosen
         return if (currentGoalId == item.id) {
-            PurchaseOutcome.GoalInProgress(
-                saved = current.savings,
-                price = item.price,
-            )
+            if (current.savings >= item.price) {
+                PurchaseOutcome.GoalReady(itemId = item.id, price = item.price)
+            } else {
+                PurchaseOutcome.GoalInProgress(saved = current.savings, price = item.price)
+            }
         } else {
             PurchaseOutcome.GoalAlreadyChosen
         }

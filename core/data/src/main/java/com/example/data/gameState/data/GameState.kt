@@ -75,6 +75,10 @@ sealed interface PurchaseOutcome {
         val saved: Int,
         val price: Int,
     ) : PurchaseOutcome
+    data class GoalReady(
+        val itemId: String,
+        val price: Int,
+    ) : PurchaseOutcome
     data object GoalAlreadyChosen : PurchaseOutcome
     data object NoGoalChosen : PurchaseOutcome
 }

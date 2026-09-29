@@ -246,8 +246,10 @@ private fun ShopPurchaseDialog(
 ) {
     val item = state.item
     val outcome = state.outcome
+    val isGoalReady = outcome is PurchaseOutcome.GoalReady
     val isSuccess = outcome is PurchaseOutcome.Success
     val isGoal = item.category == ItemCategory.GOAL
+    val canBuy = isSuccess || isGoalReady
 
     Box(
         modifier = Modifier
@@ -289,17 +291,21 @@ private fun ShopPurchaseDialog(
                         )
                     }
                 },
-                okText = if (isSuccess) {
-                    stringResource(R.string.shop_buy)
-                } else {
-                    stringResource(R.string.ok)
-                },
-                okEnabled = if (isGoal) true else isSuccess,
                 visible = true,
-                onOkClick = {
-                    if (isSuccess) onConfirm() else onDismiss()
-                },
                 onBackClick = onDismiss,
+                okText = when {
+                    isGoalReady -> stringResource(R.string.shop_get_goal)
+                    isSuccess -> stringResource(R.string.shop_buy)
+                    else -> stringResource(R.string.ok)
+                },
+                okEnabled = when {
+                    isGoalReady -> true
+                    isGoal -> false
+                    else -> isSuccess
+                },
+                onOkClick = {
+                    if (canBuy) onConfirm() else onDismiss()
+                },
             )
         }
     }
@@ -348,6 +354,7 @@ private fun dialogMessage(state: ShopDialogState): String {
         PurchaseOutcome.NoGoalChosen ->
             stringResource(R.string.shop_msg_goal_none)
 
-        else -> ""
+        is PurchaseOutcome.GoalReady ->
+            stringResource(R.string.shop_msg_goal_ready, outcome.price)
     }
 }

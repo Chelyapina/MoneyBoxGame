@@ -1,14 +1,17 @@
 package com.example.shop
 
-import org.junit.Test
-import org.junit.Assert.*
 import com.example.data.gameState.data.GameState
 import com.example.data.gameState.data.OwlMood
+import com.example.data.gameState.data.PurchaseOutcome
 import com.example.data.gameState.mock.FakeStore
 import com.example.designsystem.resources.ShopItems
 import com.example.shop.domain.PurchaseItemUseCase
-import com.example.shop.domain.PurchaseOutcome
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 class PurchaseItemUseCaseTest {
 
@@ -206,5 +209,37 @@ class PurchaseItemUseCaseTest {
 
         val history = store.state.value.purchasesThisLevel
         assertEquals(listOf("carrot", "candy"), history)
+    }
+
+    @Test
+    fun `completing goal spends savings and raises level`() = runTest {
+        val store = FakeStore(
+            GameState.Empty.copy(
+                goalId = "goal_house",
+                savings = 100,
+                level = 1,
+            ),
+        )
+        val outcome = PurchaseItemUseCase(store)
+            .invoke(store.state.value, ShopItems.requireById("goal_house"))
+
+        assertTrue(outcome is PurchaseOutcome.GoalReady)
+        val state = store.state.value
+        assertEquals(0, state.savings)
+        assertEquals(2, state.level)
+        assertNull(state.goalId)
+        assertEquals("goal_house" to 80, store.savedGoalCompletion)
+    }
+
+    @Test
+    fun `not enough savings returns GoalInProgress`() = runTest {
+        val store = FakeStore(
+            GameState.Empty.copy(goalId = "goal_house", savings = 30),
+        )
+        val outcome = PurchaseItemUseCase(store)
+            .invoke(store.state.value, ShopItems.requireById("goal_house"))
+
+        assertTrue(outcome is PurchaseOutcome.GoalInProgress)
+        assertNull(store.savedGoalCompletion)
     }
 }
